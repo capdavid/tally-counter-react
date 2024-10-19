@@ -7,9 +7,12 @@
 /coverage
 
 # production
+/old_build
 /build
 /marketing
 /images-old
+build.crx
+build.pem
 
 # misc
 .DS_Store

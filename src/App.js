@@ -23,14 +23,17 @@ class App extends Component {
         items: [],
     };
 
-    componentDidMount() {
-        getData().then(items => {
-            this.setState({ ...this.state, items: items });
-        });
-
+    async componentDidMount() {
         this.setState({
             dark: localStorage.getItem('darkTheme') && localStorage.getItem('darkTheme') === 'true',
-            notifications: localStorage.getItem('notifications') && localStorage.getItem('notifications') === 'true',
+        });
+
+        const items = await getData();
+        const notificationsRes = await chrome.storage.local.get(['notifications']);
+
+        this.setState({
+            items: items,
+            notifications: 'notifications' in notificationsRes && notificationsRes.notifications,
         });
 
         chrome.runtime.onMessage.addListener((message, _, sendResponse) => {
@@ -64,9 +67,9 @@ class App extends Component {
         return updatedState;
     };
 
-    toggleNotificationsHandler = () => {
+    toggleNotificationsHandler = async () => {
         const notifications = !this.state.notifications;
-        localStorage.setItem('notifications', notifications);
+        await chrome.storage.local.set({ notifications: notifications });
         this.setState(prevState => ({
             notifications: !prevState.notifications,
         }));

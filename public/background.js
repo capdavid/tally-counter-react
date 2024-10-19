@@ -2,8 +2,8 @@ import debounce from './modules/lodash.debounce/index.js';
 import { getData, storageSync } from './storage.js';
 import { increaseCommands, decreaseCommands } from './commands.js';
 
-chrome.runtime.onInstalled.addListener(function(details) {
-    chrome.declarativeContent.onPageChanged.removeRules(undefined, function() {
+chrome.runtime.onInstalled.addListener(async function (details) {
+    chrome.declarativeContent.onPageChanged.removeRules(undefined, function () {
         chrome.declarativeContent.onPageChanged.addRules([
             {
                 conditions: [new chrome.declarativeContent.PageStateMatcher({})],
@@ -12,20 +12,22 @@ chrome.runtime.onInstalled.addListener(function(details) {
         ]);
     });
     if (details.reason == 'install') {
-        chrome.tabs.create({ url: chrome.extension.getURL('welcome.html') }, function() {});
-        localStorage.setItem('notifications', true);
+        chrome.tabs.create({ url: chrome.runtime.getURL('welcome.html') }, function () {});
+        chrome.storage.local.set({ notifications: true });
     }
     if (details.reason == 'update') {
-        chrome.tabs.create({ url: chrome.extension.getURL('update.html') }, function() {});
-        if (!localStorage.getItem('notifications')) {
-            localStorage.setItem('notifications', true);
+        chrome.tabs.create({ url: chrome.runtime.getURL('update.html') }, function () {});
+
+        const notificationsRes = await chrome.storage.local.get(['notifications']);
+        if (!notificationsRes.notifications) {
+            chrome.storage.local.set({ notifications: true });
         }
     }
 });
 
 chrome.runtime.onUpdateAvailable.addListener(() => {
     createBadge('↻');
-    chrome.browserAction.setTitle({ title: 'Update available, please restart chrome' });
+    chrome.action.setTitle({ title: 'Update available, please restart chrome' });
 });
 
 const notification = (itemName, number, index) => {
@@ -71,8 +73,8 @@ const createBadge = (text, index) => {
                 return '#1f7fe0';
         }
     };
-    chrome.browserAction.setBadgeBackgroundColor({ color: badgeColor(index) });
-    chrome.browserAction.setBadgeText({ text });
+    chrome.action.setBadgeBackgroundColor({ color: badgeColor(index) });
+    chrome.action.setBadgeText({ text });
 };
 const debounceClearBadge = debounce(() => createBadge(''), 700);
 
@@ -88,12 +90,12 @@ async function handleCommand(command, index) {
 
         createBadge(`${items[index].number}`, index);
         debounceClearBadge();
-
-        const notificationSettings = JSON.parse(localStorage.getItem('notifications'));
-        if (notificationSettings) {
+        const notificationSettings = await chrome.storage.local.get('notifications');
+        if (notificationSettings.notifications) {
             notification(items[index].itemName, items[index].number, index);
         }
     } catch (error) {
+        console.log('error', error);
         createBadge('err', 'err');
         debounceClearBadge();
 
@@ -103,7 +105,7 @@ async function handleCommand(command, index) {
     }
 }
 
-chrome.commands.onCommand.addListener(function(command) {
+chrome.commands.onCommand.addListener(function (command) {
     if (increaseCommands.includes(command) || decreaseCommands.includes(command)) {
         chrome.runtime.sendMessage(command, () => {
             if (chrome.runtime.lastError) {
