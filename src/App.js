@@ -8,6 +8,7 @@ import { increaseCommands, decreaseCommands } from './commands.js';
 
 import { light, dark } from './theme';
 import Container from './components/Container';
+import Donation from './components/Donation.js';
 import Header from './components/Header';
 import ImageButton from './components/ImageButton';
 import Item from './components/Item';
@@ -22,6 +23,7 @@ class App extends Component {
         dark: true,
         items: [],
         isReorderMode: false,
+        showDonation: null,
     };
 
     async componentDidMount() {
@@ -35,6 +37,7 @@ class App extends Component {
         this.setState({
             items: items,
             notifications: 'notifications' in notificationsRes && notificationsRes.notifications,
+            showDonation: Math.random() < 0.15 ? Math.floor(Math.random() * 4) + 1 : null,
         });
 
         chrome.runtime.onMessage.addListener((message, _, sendResponse) => {
@@ -263,6 +266,7 @@ class App extends Component {
                             />
                         </div>
                     ))}
+                    {this.state.showDonation && <Donation textOption={this.state.showDonation} />}
                 </Container>
             </ThemeProvider>
         );

@@ -1,8 +1,9 @@
-I needed a chrome extension such as this, couldn't find any, so I programmed it to learn. :)   
+I needed a Chrome extension such as this, couldn't find any, so I programmed it to learn. :)
 
 Live version: https://chrome.google.com/webstore/detail/tally-counter/innllipkgdpgnnhmbhjfminingfjmlgl
 
-**************************************************
+---
+
 <br>
 <br>
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
