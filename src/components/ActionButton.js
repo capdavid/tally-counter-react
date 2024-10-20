@@ -41,7 +41,7 @@ const ActionButton = styled(Button)`
     border-radius: 50%;
     outline: none;
     border: none;
-    transition: transform 0.2s;
+    transition: transform 0.2s !important;
     cursor: pointer;
     background: ${changeButtonBackground};
     &:hover {

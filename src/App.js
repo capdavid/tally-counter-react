@@ -21,6 +21,7 @@ class App extends Component {
         notifications: true,
         dark: true,
         items: [],
+        isReorderMode: false,
     };
 
     async componentDidMount() {
@@ -52,7 +53,7 @@ class App extends Component {
     }
 
     componentDidUpdate(_, prevState) {
-        if (prevState.items !== this.state.items) {
+        if (prevState.items !== this.state.items && !this.state.isReorderMode) {
             this.debouncedStorageSync();
         }
     }
@@ -140,57 +141,127 @@ class App extends Component {
         document.getElementById('export').href = url;
     };
 
+    // Reorder mode
+
+    toggleReorderMode = () => {
+        this.setState(prevState => ({
+            isReorderMode: !prevState.isReorderMode,
+        }));
+    };
+
+    onDragStart = (e, index) => {
+        e.dataTransfer.setData('text/plain', index);
+    };
+
+    onDragOver = e => {
+        e.preventDefault();
+    };
+
+    onDrop = (e, dropIndex) => {
+        e.preventDefault();
+        const dragIndex = parseInt(e.dataTransfer.getData('text/plain'), 10);
+        const items = Array.from(this.state.items);
+        const [reorderedItem] = items.splice(dragIndex, 1);
+        items.splice(dropIndex, 0, reorderedItem);
+        this.setState({ items });
+    };
+
+    saveReorderedItems = () => {
+        this.setState({ isReorderMode: false }, () => {
+            this.debouncedStorageSync();
+        });
+    };
+
     render() {
         return (
             <ThemeProvider theme={this.state.dark ? dark : light}>
                 <Container>
-                    <ImageButton
-                        left
-                        small
-                        className={this.state.notifications ? 'fas fa-bell-slash' : 'fas fa-bell'}
-                        style={{ width: '20px' }}
-                        onClick={this.toggleNotificationsHandler}
-                        title="Toggle hotkey notifications"
-                    />
-                    <Header>Tally Counter</Header>
-                    <Logo />
-                    <ImageButton
-                        small
-                        right
-                        className={this.state.dark ? 'fa fa-lightbulb' : 'fas fa-moon'}
-                        style={{ width: '22.4px' }}
-                        onClick={this.toggleThemeHandler}
-                        title="Toggle night mode"
-                    />
-                    <div style={{ margin: '1rem 0' }}>
-                        <TextButton float="left" onClick={this.addItemHandler}>
-                            Add item
-                        </TextButton>
-
-                        <a id="export" href="index.html" download="tally-counter.csv">
+                    <div style={{ display: 'flex', justifyContent: 'space-between', position: 'relative' }}>
+                        <ImageButton
+                            left
+                            small
+                            className="fas fa-bars"
+                            style={{ width: '20px' }}
+                            onClick={this.toggleReorderMode}
+                            title="Reorder items"
+                            isReorderMode={this.state.isReorderMode}
+                        />
+                        <div
+                            style={{
+                                display: 'flex',
+                                alignItems: 'center',
+                                position: 'absolute',
+                                left: '50%',
+                                transform: 'translateX(-50%)',
+                            }}>
+                            <Header>Tally Counter</Header>
+                            <Logo />
+                        </div>
+                        <div>
                             <ImageButton
-                                className="fas fa-file-download"
-                                onClick={this.exportHandler}
-                                title="Export to .csv"
+                                right
+                                small
+                                className={this.state.notifications ? 'fas fa-bell-slash' : 'fas fa-bell'}
+                                style={{ width: '20px' }}
+                                onClick={this.toggleNotificationsHandler}
+                                title="Toggle hotkey notifications"
                             />
-                        </a>
+                            <ImageButton
+                                small
+                                right
+                                className={this.state.dark ? 'fa fa-lightbulb' : 'fas fa-moon'}
+                                style={{ width: '22.4px' }}
+                                onClick={this.toggleThemeHandler}
+                                title="Toggle night mode"
+                            />
+                        </div>
+                    </div>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', margin: '1rem 0' }}>
+                        {!this.state.isReorderMode ? (
+                            <>
+                                <TextButton float="left" onClick={this.addItemHandler}>
+                                    Add item
+                                </TextButton>
 
-                        <TextButton type="danger" float="right" onClick={this.resetAllHandler}>
-                            Reset all
-                        </TextButton>
+                                <a id="export" href="index.html" download="tally-counter.csv">
+                                    <ImageButton
+                                        className="fas fa-file-download"
+                                        onClick={this.exportHandler}
+                                        title="Export to .csv"
+                                    />
+                                </a>
+
+                                <TextButton type="danger" float="right" onClick={this.resetAllHandler}>
+                                    Reset all
+                                </TextButton>
+                            </>
+                        ) : (
+                            <TextButton onClick={this.saveReorderedItems} style={{ margin: '0 auto' }}>
+                                Save order
+                            </TextButton>
+                        )}
                     </div>
                     {this.state.items.map((item, index) => (
-                        <Item
-                            numberValue={item.number}
-                            itemName={item.itemName}
+                        <div
                             key={item.id}
-                            itemNameChange={e => this.onChangeHandler(e, index, 'itemName')}
-                            numberChange={e => this.onChangeHandler(e, index, 'number')}
-                            delete={() => this.deleteHandler(index)}
-                            increment={() => this.incrementHandler(index)}
-                            decrement={() => this.decrementHandler(index)}
-                            reset={() => this.resetHandler(index)}
-                        />
+                            draggable={this.state.isReorderMode}
+                            onDragStart={e => this.onDragStart(e, index)}
+                            onDragOver={this.onDragOver}
+                            onDrop={e => this.onDrop(e, index)}>
+                            <Item
+                                numberValue={item.number}
+                                itemName={item.itemName}
+                                itemNameChange={e => this.onChangeHandler(e, index, 'itemName')}
+                                numberChange={e => this.onChangeHandler(e, index, 'number')}
+                                delete={() => this.deleteHandler(index)}
+                                increment={() => this.incrementHandler(index)}
+                                decrement={() => this.decrementHandler(index)}
+                                reset={() => this.resetHandler(index)}
+                                isReorderMode={this.state.isReorderMode}
+                                index={index}
+                                darkTheme={this.state.dark}
+                            />
+                        </div>
                     ))}
                 </Container>
             </ThemeProvider>

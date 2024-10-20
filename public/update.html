@@ -14,14 +14,76 @@
         />
         <link rel="stylesheet" href="welcome.css" />
     </head>
-    <body>
+    <body class="container">
         <section id="welcome">
             <h1>
                 <strong>Tally counter</strong>
                 <img src="images/icon48.png" id="icon" /> has been updated!
             </h1>
+            <p>
+                <strong>Hello beautiful souls! </strong><br />To ensure Tally counter stays in the Chrome Web Store,
+                it's now fully compliant with the new Google guidelines 🎉. This means you can continue to use Tally
+                counter without any interruptions or concerns about its availability.
+            </p>
+            <br />
             <span class="lead">new features:</span>
         </section>
+        <h2>Reorder your items</h2>
+        <p>
+            You can now reorder your items easily! Click the reorder icon in the top-left corner to enter reorder mode.
+        </p>
+        <div class="py"><img src="images/reorder-mode.gif" alt="Reorder mode demonstration" /></div>
+        <p>
+            In reorder mode, simply drag and drop items to rearrange them. Click "Save order" when you're done. If you
+            click away or close the extension without saving, nothing is changed.
+        </p>
+
+        <h3>Hotkeys and badge colors</h3>
+        <p>
+            <span class="danger bold">IMPORTANT!</span>
+            Remember, hotkeys are linked to item positions, not the items themselves. This can lead to unintended
+            behavior - for example if you moved the third item to the first place and still pressing the third hotkey,
+            you would be updating a different item. To illustrate what item is linked to which hotkey/badge, the drag
+            icons are matching the <a href="#badges">badge</a> colors: <br />
+        </p>
+        <div id="reorder-circles">
+            <div class="reorder-item">
+                <i class="fas fa-arrows-alt" style="color: #0090f0"></i>
+                First item
+            </div>
+            <div class="reorder-item">
+                <i class="fas fa-arrows-alt" style="color: #2ab580"></i>
+                Second item
+            </div>
+            <div class="reorder-item">
+                <i class="fas fa-arrows-alt" style="color: #e6399e"></i>
+                Third item
+            </div>
+            <div class="reorder-item">
+                <i class="fas fa-arrows-alt" style="color: #ff9500"></i>
+                Fourth item
+            </div>
+            <div class="reorder-item">
+                <i class="fas fa-arrows-alt" style="color: #bf00ff"></i>
+                Fifth item (changed from black to purple)
+            </div>
+        </div>
+
+        <h3>Customize your hotkeys</h3>
+        <p>
+            If you prefer to keep using the same keys for specific items after reordering, you need to customize your
+            hotkeys!
+        </p>
+        To adjust hotkeys, go to
+        <a href="chrome://extensions/shortcuts">chrome://extensions/shortcuts</a>
+        (you need to copy it into the address bar, clicking won't work). <br /><br />
+        <p class="italic">
+            To accomodate reorder mode, the mute notification icon has been moved to the right next to toggle theme
+            button. Also the fifth badge color has been changed from black to purple.
+        </p>
+        <br />
+        <span class="lead">older features:</span>
+
         <h2>Introducing dark mode</h2>
         You can embrace the
         <span style="font-weight: bold"> darkness </span>
@@ -34,33 +96,30 @@
         with the <span style="font-weight: bold"> toggle in the top-left corner! </span> <br /><br />
         <p>If you don't know what hotkeys are, scroll down.</p>
 
-        <h2>Color icon badges</h2>
+        <h2 id="badges">Color icon badges</h2>
         Since you can mute notifications now, it would be nice if you had some visual feedback when pressing the hotkey.
         Introducing badges, handy little things that appear under the extension icon when you press the hotkey!
         <div class="py"><img src="images/badge.gif" /></div>
         Badges have different backgrounds based on the order of the item you pressed the hotkey for:
         <div id="circles">
-            <div class="circle" style="background: #1f7fe0"></div>
+            <div class="circle" style="background: #0090f0"></div>
             First item
-            <div class="circle" style="background: #29a470"></div>
+            <div class="circle" style="background: #2ab580"></div>
             Second item
-            <div class="circle" style="background: #cc338c"></div>
+            <div class="circle" style="background: #e6399e"></div>
             Third item
-            <div class="circle" style="background: #de9900"></div>
+            <div class="circle" style="background: #ff9500"></div>
             Fourth item
-            <div class="circle" style="background: #000"></div>
+            <div class="circle" style="background: #bf00ff"></div>
             Fifth item
         </div>
-
-        <br /><br />
-        <span class="lead">older features:</span>
         <section id="hotkeys">
             <h2>Keyboard shortcuts / Hotkeys</h2>
 
             <h3>Default:</h3>
             <!-- <img class="option-key" src="images/option-key.png"> -->
             <div class="hotkey">
-                Shortct/hotkey
+                Shortcut/hotkey
                 <span id="windows">Windows</span>
                 <span id="macOS">macOS</span>
             </div>
@@ -83,7 +142,7 @@
             <p>
                 The hotkeys work even when the extension is closed. By default you will get a notification and see a
                 number in the extension icon (see badges above). You can disable the notifications by clicking the
-                slashed bell in the top-left corner.
+                slashed bell in the top-right corner.
             </p>
             <br />
 

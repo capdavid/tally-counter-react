@@ -70,7 +70,7 @@
         <h2>Mute notifications</h2>
         Are you using the hotkeys (more information above) and you hate the notifications poping when the extension is
         closed? Mute notifications with the
-        <span style="font-weight: bold"> toggle in the top-left corner! </span> Click the slashed bell icon and live
+        <span style="font-weight: bold"> toggle in the top-right corner! </span> Click the slashed bell icon and live
         peacefully again.
         <h2>Color icon badges</h2>
         Since you can mute notifications now, it would be nice if you had some visual feedback when pressing the hotkey.
@@ -78,17 +78,63 @@
         <div class="py"><img src="images/badge.gif" /></div>
         Badges have different backgrounds based on the order of the item you pressed the hotkey for:
         <div id="circles">
-            <div class="circle" style="background: #1f7fe0"></div>
+            <div class="circle" style="background: #0090f0"></div>
             First item
-            <div class="circle" style="background: #29a470"></div>
+            <div class="circle" style="background: #2ab580"></div>
             Second item
-            <div class="circle" style="background: #cc338c"></div>
+            <div class="circle" style="background: #e6399e"></div>
             Third item
-            <div class="circle" style="background: #de9900"></div>
+            <div class="circle" style="background: #ff9500"></div>
             Fourth item
-            <div class="circle" style="background: #000"></div>
+            <div class="circle" style="background: #bf00ff"></div>
             Fifth item
         </div>
+
+        <h2>Reorder your items</h2>
+        <p>
+            You can now reorder your items easily! Click the reorder icon in the top-left corner to enter reorder mode.
+        </p>
+        <div class="py"><img src="images/reorder-mode.gif" alt="Reorder mode demonstration" /></div>
+        <p>
+            In reorder mode, simply drag and drop items to rearrange them. Click "Save order" when you're done. If you
+            click away or close the extension without saving, nothing is changed.
+        </p>
+
+        <h3>Hotkeys and badge colors</h3>
+        <p>
+            <span class="danger bold">IMPORTANT!</span>
+            Remember, hotkeys are linked to item positions, not the items themselves. This can lead to unintended
+            behavior - for example if you moved the third item to the first place and still pressing the third hotkey,
+            you would be updating a different item. To illustrate what item is linked to which hotkey/badge, the drag
+            icons are matching the <a href="#badges">badge</a> colors: <br />
+        </p>
+        <div id="reorder-circles">
+            <div class="reorder-item">
+                <i class="fas fa-arrows-alt" style="color: #0090f0"></i>
+                First item
+            </div>
+            <div class="reorder-item">
+                <i class="fas fa-arrows-alt" style="color: #2ab580"></i>
+                Second item
+            </div>
+            <div class="reorder-item">
+                <i class="fas fa-arrows-alt" style="color: #e6399e"></i>
+                Third item
+            </div>
+            <div class="reorder-item">
+                <i class="fas fa-arrows-alt" style="color: #ff9500"></i>
+                Fourth item
+            </div>
+            <div class="reorder-item">
+                <i class="fas fa-arrows-alt" style="color: #bf00ff"></i>
+                Fifth item
+            </div>
+        </div>
+        <br />
+        <p class="danger">
+            If you prefer to keep using the same keys for specific items after reordering, you need to customize your
+            hotkeys!
+        </p>
 
         <section>
             <h2>Export</h2>
