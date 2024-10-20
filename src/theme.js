@@ -12,7 +12,7 @@ export const light = {
 
 export const dark = {
     backgroundColor: '#444',
-    primaryColor: '#d8d8d8',
+    primaryColor: '#eee',
     accentColor: '#fff',
     btnBackgroundHover: '#fff',
     btnColor: '#000',
