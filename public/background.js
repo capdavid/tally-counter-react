@@ -54,23 +54,26 @@ const errNotification = index => {
 const createBadge = (text, index) => {
     const badgeColor = index => {
         switch (index) {
+            case 0:
+                return '#0090f0';
+
             case 1:
-                return '#29a470';
+                return '#2ab580';
 
             case 2:
-                return '#cc338c';
+                return '#e6399e';
 
             case 3:
-                return '#de9900';
+                return '#ff9500';
 
             case 4:
-                return '#000';
+                return '#bf00ff';
 
             case 'err':
                 return '#f00';
 
             default:
-                return '#1f7fe0';
+                return 'transparent';
         }
     };
     chrome.action.setBadgeBackgroundColor({ color: badgeColor(index) });
