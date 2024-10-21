@@ -2,49 +2,49 @@ import styled from 'styled-components';
 import React, { PropTypes } from 'react';
 
 const Donation = ({ className, ...props }) => {
+    return (
+        <StickyDonationWrapper>
+            <StyledHr />
+            <DonationCore {...props} />
+        </StickyDonationWrapper>
+    );
+};
+
+const DonationCore = ({ className, ...props }) => {
     switch (props.textOption) {
-        case 0:
-            return (
-                <DonationDiv>
-                    <StyledHr />
-                    <p>
-                        If Tally Counter is providing long term value, you may consider{' '}
-                        <DonationLink href="https://ko-fi.com/davidcap" target="_blank">
-                            donating
-                        </DonationLink>
-                        .
-                    </p>
-                </DonationDiv>
-            );
         case 1:
             return (
-                <DonationDiv>
-                    <StyledHr />
-                    <p>
-                        Does Tally Counter keep you organised? <br />
-                        Consider sending a{' '}
-                        <DonationLink href="https://ko-fi.com/davidcap" target="_blank">
-                            tip
-                        </DonationLink>
-                        .
-                    </p>
-                </DonationDiv>
+                <p>
+                    If Tally Counter is providing long term value, you may consider{' '}
+                    <DonationLink href="https://ko-fi.com/davidcap" target="_blank">
+                        donating
+                    </DonationLink>
+                    .
+                </p>
             );
         case 2:
             return (
-                <DonationDiv>
-                    <StyledHr />
-                    <p>
-                        If Tally Counter nurtures your productivity,
-                        <br />
-                        <DonationLink href="https://ko-fi.com/davidcap" target="_blank">
-                            your support
-                        </DonationLink>{' '}
-                        makes a difference.
-                    </p>
-                </DonationDiv>
+                <p>
+                    Does Tally Counter keep you organised? <br />
+                    <DonationLink href="https://ko-fi.com/davidcap" target="_blank">
+                        Your support
+                    </DonationLink>{' '}
+                    makes a difference.
+                </p>
             );
         case 3:
+            return (
+                <p>
+                    If Tally Counter nurtures your productivity,
+                    <br />
+                    consider sending a{' '}
+                    <DonationLink href="https://ko-fi.com/davidcap" target="_blank">
+                        tip
+                    </DonationLink>
+                    .
+                </p>
+            );
+        case 4:
             return (
                 <a href="https://ko-fi.com/S6S714X4EF" target="_blank" rel="noopener noreferrer">
                     <img
@@ -52,9 +52,7 @@ const Donation = ({ className, ...props }) => {
                         style={{
                             border: '0px',
                             height: '28px',
-                            fontSize: '1rem',
-                            marginTop: '0.5rem',
-                            marginBottom: '0.5rem',
+                            fontSize: '1rem !important',
                         }}
                         src="https://storage.ko-fi.com/cdn/kofi2.png?v=3"
                         border="0"
@@ -67,13 +65,14 @@ const Donation = ({ className, ...props }) => {
     }
 };
 
-const DonationDiv = styled.div`
-    margin-top: 1rem;
-    margin-bottom: 0.5rem;
+const StickyDonationWrapper = styled.div`
+    position: sticky;
+    bottom: 0;
+    background: ${props => props.theme.backgroundColor};
+    padding-bottom: 0.5rem;
+    margin-top: 0.5rem;
     font-size: 0.8rem;
 `;
-
-// border-top: 1px solid ${props => props.theme.primaryColor};
 
 const DonationLink = styled.a`
     color: ${props => props.theme.accentColor};

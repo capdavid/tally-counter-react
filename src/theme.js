@@ -6,18 +6,20 @@ export const light = {
     btnColor: '#f4f4f4',
     inputBackground: '#fff',
     plusButton: '#64ff50',
+    minusButton: '#ff5d5d',
     undoButton: '#ffda00',
     resetButton: '#ff3232',
 };
 
 export const dark = {
-    backgroundColor: '#444',
-    primaryColor: '#eee',
+    backgroundColor: '#2c2c2c',
+    primaryColor: '#e4f0e4',
     accentColor: '#fff',
     btnBackgroundHover: '#fff',
     btnColor: '#000',
-    inputBackground: '#d8d8d8',
-    plusButton: '#5ae548',
-    undoButton: '#f2cf00',
+    inputBackground: '#414341',
+    plusButton: '#4caf50',
+    minusButton: '#f44336',
+    undoButton: '#ffa500',
     resetButton: '#d93b3b',
 };

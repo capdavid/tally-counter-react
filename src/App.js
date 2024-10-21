@@ -266,7 +266,11 @@ class App extends Component {
                             />
                         </div>
                     ))}
-                    {this.state.showDonation && <Donation textOption={this.state.showDonation} />}
+                    {this.state.showDonation ? (
+                        <Donation textOption={this.state.showDonation} />
+                    ) : (
+                        <div style={{ paddingBottom: '0.5rem' }} />
+                    )}
                 </Container>
             </ThemeProvider>
         );
