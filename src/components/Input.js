@@ -20,6 +20,7 @@ const stylesBasedOnInputType = props => {
 };
 
 const Input = styled.input`
+    color: ${props => props.theme.primaryColor};
     vertical-align: middle;
     height: 1.4rem;
     font-weight: bold;

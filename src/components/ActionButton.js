@@ -8,13 +8,13 @@ export const types = { DELETE: 'delete', PLUS: 'plus', MINUS: 'minus', UNDO: 'un
 const changeButtonBackground = props => {
     switch (props.type) {
         case types.DELETE:
-            return '#ff5d5d';
+            return props.theme.minusButton;
 
         case types.PLUS:
             return props.theme.plusButton;
 
         case types.MINUS:
-            return '#ff5d5d';
+            return props.theme.minusButton;
 
         case types.UNDO:
             return props.theme.undoButton;
