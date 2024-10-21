@@ -73,7 +73,7 @@ const createBadge = (text, index) => {
                 return '#f00';
 
             default:
-                return 'transparent';
+                return '#808080';
         }
     };
     chrome.action.setBadgeBackgroundColor({ color: badgeColor(index) });
