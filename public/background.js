@@ -1,6 +1,7 @@
 import debounce from './modules/lodash.debounce/index.js';
 import { getData, storageSync } from './storage.js';
 import { increaseCommands, decreaseCommands } from './commands.js';
+import { getBadgeColor } from './badgeColors.js';
 
 chrome.runtime.onInstalled.addListener(async function (details) {
     chrome.declarativeContent.onPageChanged.removeRules(undefined, function () {
@@ -11,11 +12,11 @@ chrome.runtime.onInstalled.addListener(async function (details) {
             },
         ]);
     });
-    if (details.reason == 'install') {
+    if (details.reason === 'install') {
         chrome.tabs.create({ url: chrome.runtime.getURL('welcome.html') }, function () {});
         chrome.storage.local.set({ notifications: true });
     }
-    if (details.reason == 'update') {
+    if (details.reason === 'update') {
         chrome.tabs.create({ url: chrome.runtime.getURL('update.html') }, function () {});
 
         const notificationsRes = await chrome.storage.local.get(['notifications']);
@@ -52,31 +53,8 @@ const errNotification = index => {
 };
 
 const createBadge = (text, index) => {
-    const badgeColor = index => {
-        switch (index) {
-            case 0:
-                return '#0090f0';
-
-            case 1:
-                return '#2ab580';
-
-            case 2:
-                return '#e6399e';
-
-            case 3:
-                return '#ff9500';
-
-            case 4:
-                return '#bf00ff';
-
-            case 'err':
-                return '#f00';
-
-            default:
-                return '#808080';
-        }
-    };
-    chrome.action.setBadgeBackgroundColor({ color: badgeColor(index) });
+    chrome.action.setBadgeBackgroundColor({ color: getBadgeColor(index)[0] });
+    chrome.action.setBadgeTextColor({ color: getBadgeColor(index)[1] });
     chrome.action.setBadgeText({ text });
 };
 const debounceClearBadge = debounce(() => createBadge(''), 700);
@@ -102,17 +80,27 @@ async function handleCommand(command, index) {
         createBadge('err', 'err');
         debounceClearBadge();
 
-        if (error.message == "Cannot read property 'number' of undefined") {
+        if (error.message === "Cannot read property 'number' of undefined") {
             errNotification(index);
         }
     }
+}
+
+// Helper function to extract index from command
+function getIndexFromCommand(command) {
+    if (command.includes('inc')) {
+        return parseInt(command.replace('inc', ''), 10);
+    } else if (command.includes('zdec')) {
+        return parseInt(command.replace('zdec', ''), 10);
+    }
+    return 0;
 }
 
 chrome.commands.onCommand.addListener(function (command) {
     if (increaseCommands.includes(command) || decreaseCommands.includes(command)) {
         chrome.runtime.sendMessage(command, () => {
             if (chrome.runtime.lastError) {
-                const index = +command.substr(0, 1);
+                const index = getIndexFromCommand(command);
                 handleCommand(command, index);
             }
         });

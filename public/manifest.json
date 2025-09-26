@@ -22,43 +22,85 @@
         "128": "images/icon48.png"
     },
     "commands": {
-        "0inc": {
+        "00inc": {
             "suggested_key": {
                 "default": "Alt+1",
                 "mac": "MacCtrl+1"
             },
             "description": "First item +1"
         },
-        "1inc": {
+        "01inc": {
             "description": "Second item +1"
         },
-        "2inc": {
+        "02inc": {
             "description": "Third item +1"
         },
-        "3inc": {
+        "03inc": {
             "description": "Fourth item +1"
         },
-        "4inc": {
+        "04inc": {
             "description": "Fifth item +1"
         },
-        "0zdec": {
+        "05inc": {
+            "description": "Sixth item +1"
+        },
+        "06inc": {
+            "description": "Seventh item +1"
+        },
+        "07inc": {
+            "description": "Eighth item +1"
+        },
+        "08inc": {
+            "description": "Ninth item +1"
+        },
+        "09inc": {
+            "description": "Tenth item +1"
+        },
+        "10inc": {
+            "description": "Eleventh item +1"
+        },
+        "11inc": {
+            "description": "Twelfth item +1"
+        },
+        "00zdec": {
             "suggested_key": {
                 "default": "Alt+Shift+1",
                 "mac": "MacCtrl+Shift+1"
             },
             "description": "First item -1"
         },
-        "1zdec": {
+        "01zdec": {
             "description": "Second item -1"
         },
-        "2zdec": {
+        "02zdec": {
             "description": "Third item -1"
         },
-        "3zdec": {
+        "03zdec": {
             "description": "Fourth item -1"
         },
-        "4zdec": {
+        "04zdec": {
             "description": "Fifth item -1"
+        },
+        "05zdec": {
+            "description": "Sixth item -1"
+        },
+        "06zdec": {
+            "description": "Seventh item -1"
+        },
+        "07zdec": {
+            "description": "Eighth item -1"
+        },
+        "08zdec": {
+            "description": "Ninth item -1"
+        },
+        "09zdec": {
+            "description": "Tenth item -1"
+        },
+        "10zdec": {
+            "description": "Eleventh item -1"
+        },
+        "11zdec": {
+            "description": "Twelfth item -1"
         },
         "_execute_action": {
             "suggested_key": {

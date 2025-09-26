@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import styled, { ThemeProvider } from 'styled-components';
+import { ThemeProvider } from 'styled-components';
 import uuid from 'uuid/v4';
 import debounce from 'lodash.debounce';
 
@@ -16,6 +16,16 @@ import Logo from './components/Logo';
 import TextButton from './components/TextButton';
 
 /* global chrome */
+
+// Helper function to extract index from command
+function getIndexFromCommand(command) {
+    if (command.includes('inc')) {
+        return parseInt(command.replace('inc', ''), 10);
+    } else if (command.includes('zdec')) {
+        return parseInt(command.replace('zdec', ''), 10);
+    }
+    return 0;
+}
 
 class App extends Component {
     state = {
@@ -42,13 +52,13 @@ class App extends Component {
 
         chrome.runtime.onMessage.addListener((message, _, sendResponse) => {
             if (increaseCommands.includes(message)) {
-                const index = message.substr(0, 1);
+                const index = getIndexFromCommand(message);
                 sendResponse('increased');
                 this.incrementHandler(index);
             }
 
             if (decreaseCommands.includes(message)) {
-                const index = message.substr(0, 1);
+                const index = getIndexFromCommand(message);
                 sendResponse('decreased');
                 this.decrementHandler(index);
             }
