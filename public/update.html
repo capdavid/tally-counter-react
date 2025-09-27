@@ -9,7 +9,7 @@
             crossorigin="anonymous"
         />
         <link
-            href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700,800&display=swap&subset=cyrillic-ext,latin-ext"
+            href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,500,700,800&display=swap&subset=cyrillic-ext,latin-ext"
             rel="stylesheet"
         />
         <link rel="stylesheet" href="welcome.css" />
@@ -21,14 +21,30 @@
                 <img src="images/icon48.png" id="icon" /> has been updated!
             </h1>
             <p>
-                <strong>Hello beautiful souls! </strong><br />To ensure Tally counter stays in the Chrome Web Store,
-                it's now fully compliant with the new Google guidelines 🎉. This means you can continue to use Tally
-                counter without any interruptions or concerns about its availability. The update probably reset your
-                notification settings, if you prefer no notifications, you can disable them in the top right corner.
+                <strong>Hello beautiful souls! </strong><br />This update brings exciting new enhancements to make Tally
+                Counter even better! We've expanded keyboard shortcuts support to 12 items (up from 5) and improved
+                badge colors with better text contrast for enhanced readability.
             </p>
             <br />
             <span class="lead">new features:</span>
+            <h2>Extended keyboard shortcuts support</h2>
+            <p>
+                You can now set up keyboard shortcuts for up to 12 items instead of the previous limit of 5! To set more
+                hotkeys copy <a href="chrome://extensions/shortcuts">chrome://extensions/shortcuts</a> into the address
+                bar and press Enter.
+            </p>
+
+            <h2>Improved badge colors and text contrast</h2>
+            <p>
+                Badge colors have been updated with better contrast and readability. Badge text now automatically
+                adjusts to black or white based on the background color, ensuring optimal visibility across all badge
+                colors.
+            </p>
         </section>
+        <br /><br />
+
+        <span class="lead">previously added features:</span>
+
         <h2>Faster work with longer lists</h2>
         <p>If you track a large number of items, the extension should be more performant and responsive.</p>
         <h2>Reorder your items</h2>
@@ -55,7 +71,7 @@
                 First item
             </div>
             <div class="reorder-item">
-                <i class="fas fa-arrows-alt" style="color: #2ab580"></i>
+                <i class="fas fa-arrows-alt" style="color: #24a875"></i>
                 Second item
             </div>
             <div class="reorder-item">
@@ -100,6 +116,7 @@
             I made dark mode theme colors a little bit less crazy. I guess this is subjective but to my eye it looks
             better (I am no designer though :D).
         </p>
+
         <h2>Donations</h2>
         <p>
             I guess this is not really a feature, but many people write to me that they use the extension daily and find
@@ -118,8 +135,6 @@
                 border="0"
                 alt="Buy Me a Coffee at ko-fi.com"
         /></a>
-        <br /><br />
-        <span class="lead">previously added features:</span>
 
         <h2>Introducing dark mode</h2>
         You can embrace the
@@ -141,7 +156,7 @@
         <div id="circles">
             <div class="circle" style="background: #0090f0"></div>
             First item
-            <div class="circle" style="background: #2ab580"></div>
+            <div class="circle" style="background: #24a875"></div>
             Second item
             <div class="circle" style="background: #e6399e"></div>
             Third item
@@ -193,5 +208,40 @@
             <div class="image"><img src="images/export.png" /></div>
         </section>
         <br /><br />
+
+        <!-- Floating donation div -->
+        <div
+            style="
+                position: fixed;
+                bottom: 20px;
+                left: 50%;
+                transform: translateX(-50%);
+                width: 80%;
+                max-width: 600px;
+                background: white;
+                padding: 18px 20px;
+                border-radius: 8px;
+                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                z-index: 1000;
+            "
+        >
+            <!-- <span style="font-size: 14px;  color: #333; font-weight: 500">Donate to help me keep building!</span> -->
+            <span style="font-size: 14px; color: #333; font-weight: 500"
+                >Apps don’t grow on trees though this one kind of did 🌱. <br />Water it with a donation and help me
+                keep building.</span
+            >
+            <a href="https://ko-fi.com/S6S714X4EF" target="_blank" style="display: flex; align-items: center">
+                <img
+                    height="36"
+                    style="border: 0px; height: 36px"
+                    src="https://storage.ko-fi.com/cdn/kofi2.png?v=3"
+                    border="0"
+                    alt="Buy Me a Coffee at ko-fi.com"
+                />
+            </a>
+        </div>
     </body>
 </html>

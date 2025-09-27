@@ -1,5 +1,5 @@
 // Helper function to determine if a color is light or dark
-const isLightColor = (hexColor) => {
+const isLightColor = hexColor => {
     // Remove # if present
     const hex = hexColor.replace('#', '');
     // Convert to RGB
@@ -8,19 +8,19 @@ const isLightColor = (hexColor) => {
     const b = parseInt(hex.substr(4, 2), 16);
     // Calculate luminance
     const luminance = (0.299 * r + 0.587 * g + 0.114 * b) / 255;
-    return luminance > 0.5;
+    return luminance > 0.55;
 };
 
 // Centralized badge color configuration - returns [badgeColor, textColor]
 export const getBadgeColor = index => {
     let badgeColor;
-    
+
     switch (index) {
         case 0:
             badgeColor = '#0090f0';
             break;
         case 1:
-            badgeColor = '#2ab580';
+            badgeColor = '#24a875';
             break;
         case 2:
             badgeColor = '#e6399e';
@@ -32,25 +32,25 @@ export const getBadgeColor = index => {
             badgeColor = '#bf00ff';
             break;
         case 5:
-            badgeColor = '#ff6b35';
+            badgeColor = '#d63031';
             break;
         case 6:
-            badgeColor = '#4ecdc4';
+            badgeColor = '#00b894';
             break;
         case 7:
-            badgeColor = '#45b7d1';
+            badgeColor = '#6c5ce7';
             break;
         case 8:
             badgeColor = '#f9ca24';
             break;
         case 9:
-            badgeColor = '#6c5ce7';
+            badgeColor = '#b8b3fe';
             break;
         case 10:
             badgeColor = '#fd79a8';
             break;
         case 11:
-            badgeColor = '#00b894';
+            badgeColor = '#00cec9';
             break;
         case 'err':
             badgeColor = '#f00';
@@ -59,7 +59,7 @@ export const getBadgeColor = index => {
             badgeColor = '#808080';
             break;
     }
-    
+
     // Return tuple: [badgeColor, textColor]
     const textColor = isLightColor(badgeColor) ? '#000' : '#fff';
     return [badgeColor, textColor];

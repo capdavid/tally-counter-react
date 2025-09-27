@@ -32,7 +32,7 @@ const DragIconWrapper = styled.div`
     width: 24px;
     height: 22px;
     margin: 0 0.2rem;
-    color: ${props => (props.index < 5 ? props.color : props.theme.accentColor)};
+    color: ${props => (props.index < 12 ? props.color : props.theme.accentColor)};
 `;
 
 const Item = styled(baseItem)`
