@@ -3,7 +3,7 @@ import { ThemeProvider } from 'styled-components';
 import uuid from 'uuid/v4';
 import debounce from 'lodash.debounce';
 
-import { getData, storageSync } from './storage';
+import { getData, storageSync, storageSyncImmediate } from './storage';
 import { increaseCommands, decreaseCommands } from './commands.js';
 
 import { light, dark } from './theme';
@@ -69,6 +69,19 @@ class App extends Component {
                 this.decrementHandler(index);
             }
         });
+
+        // Add event listeners to ensure data is saved when popup closes
+        this.handleBeforeUnload = this.handleBeforeUnload.bind(this);
+        this.handleVisibilityChange = this.handleVisibilityChange.bind(this);
+
+        window.addEventListener('beforeunload', this.handleBeforeUnload);
+        document.addEventListener('visibilitychange', this.handleVisibilityChange);
+    }
+
+    componentWillUnmount() {
+        // Clean up event listeners
+        window.removeEventListener('beforeunload', this.handleBeforeUnload);
+        document.removeEventListener('visibilitychange', this.handleVisibilityChange);
     }
 
     componentDidUpdate(_, prevState) {
@@ -78,6 +91,34 @@ class App extends Component {
     }
 
     debouncedStorageSync = debounce(() => storageSync(this.state.items), 200);
+
+    // Force immediate sync without debouncing
+    forceSyncData = async () => {
+        try {
+            await storageSyncImmediate(this.state.items);
+        } catch (error) {
+            console.error('Failed to force sync data:', error);
+        }
+    };
+
+    // Handle beforeunload event to save data when popup is closing
+    handleBeforeUnload = event => {
+        // Cancel any pending debounced sync and force immediate sync
+        this.debouncedStorageSync.cancel();
+        this.forceSyncData();
+
+        // Note: We can't wait for async operations in beforeunload,
+        // but we trigger the sync immediately
+    };
+
+    // Handle visibility change as a backup (when tab becomes hidden)
+    handleVisibilityChange = () => {
+        if (document.hidden) {
+            // Cancel any pending debounced sync and force immediate sync
+            this.debouncedStorageSync.cancel();
+            this.forceSyncData();
+        }
+    };
 
     getState = () => {
         const updatedState = {

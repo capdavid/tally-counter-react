@@ -21,3 +21,18 @@ export const storageSync = items =>
     chrome.storage.sync.set({ items }, function () {
         console.log('storage synced', items);
     });
+
+// Immediate sync function that returns a promise for reliable completion
+export const storageSyncImmediate = items => {
+    return new Promise((resolve, reject) => {
+        chrome.storage.sync.set({ items }, function () {
+            if (chrome.runtime.lastError) {
+                console.error('Immediate storage sync failed:', chrome.runtime.lastError.message);
+                reject(chrome.runtime.lastError);
+            } else {
+                console.log('immediate storage synced', items);
+                resolve();
+            }
+        });
+    });
+};
