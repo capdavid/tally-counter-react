@@ -1,2 +1,2 @@
-export const increaseCommands = ['00inc', '01inc', '02inc', '03inc', '04inc', '05inc', '06inc', '07inc', '08inc', '09inc', '10inc', '11inc'];
-export const decreaseCommands = ['00zdec', '01zdec', '02zdec', '03zdec', '04zdec', '05zdec', '06zdec', '07zdec', '08zdec', '09zdec', '10zdec', '11zdec'];
+export const increaseCommands = ['0inc', '1inc', '2inc', '3inc', '4inc', '5inc', '6inc', '7inc', '8inc', '9inc', 'a10inc', 'a11inc'];
+export const decreaseCommands = ['0zdec', '1zdec', '2zdec', '3zdec', '4zdec', '5zdec', '6zdec', '7zdec', '8zdec', '9zdec', 'a10zdec', 'a11zdec'];

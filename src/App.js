@@ -20,9 +20,15 @@ import TextButton from './components/TextButton';
 // Helper function to extract index from command
 function getIndexFromCommand(command) {
     if (command.includes('inc')) {
-        return parseInt(command.replace('inc', ''), 10);
+        const indexStr = command.replace('inc', '');
+        if (indexStr === 'a10') return 10;
+        if (indexStr === 'a11') return 11;
+        return parseInt(indexStr, 10);
     } else if (command.includes('zdec')) {
-        return parseInt(command.replace('zdec', ''), 10);
+        const indexStr = command.replace('zdec', '');
+        if (indexStr === 'a10') return 10;
+        if (indexStr === 'a11') return 11;
+        return parseInt(indexStr, 10);
     }
     return 0;
 }
