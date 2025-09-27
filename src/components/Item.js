@@ -4,26 +4,10 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import ActionButton from './ActionButton';
 import Input from './Input';
-
-const getColorForIndex = index => {
-    switch (index) {
-        case 0:
-            return '#0090f0';
-        case 1:
-            return '#2ab580';
-        case 2:
-            return '#e6399e';
-        case 3:
-            return '#ff9500';
-        case 4:
-            return '#bf00ff';
-        default:
-            return 'transparent';
-    }
-};
+import { getBadgeColor } from '../badgeColors.js';
 
 const baseItem = ({ className, ...props }) => {
-    const color = getColorForIndex(props.index);
+    const color = getBadgeColor(props.index)[0];
     return (
         <div className={className} isReorderMode={props.isReorderMode}>
             {props.isReorderMode ? (
@@ -48,7 +32,7 @@ const DragIconWrapper = styled.div`
     width: 24px;
     height: 22px;
     margin: 0 0.2rem;
-    color: ${props => (props.index < 5 ? props.color : props.theme.accentColor)};
+    color: ${props => (props.index < 12 ? props.color : props.theme.accentColor)};
 `;
 
 const Item = styled(baseItem)`
