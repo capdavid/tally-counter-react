@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
 const stylesBasedOnInputType = props => {
+    const safeValue = props.value === undefined || props.value === null ? 0 : props.value;
     let styles = props.itemName
         ? `
     margin: 0 0.5rem;
@@ -11,7 +12,7 @@ const stylesBasedOnInputType = props => {
     font-size: 0.75rem;`
         : `
     min-width: 3ch;
-    width: ${props.value.toString().length + 1}ch;
+    width: ${String(safeValue).length + 1}ch;
     margin-right: 0.4rem;
     text-align: center;
     font-size: 1.1rem;`;

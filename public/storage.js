@@ -6,6 +6,16 @@ function generateUUID() {
     });
 }
 
+const normalizeItem = item => {
+    const safeItem = item || {};
+
+    return {
+        itemName: typeof safeItem.itemName === 'string' ? safeItem.itemName : '',
+        number: typeof safeItem.number === 'number' && Number.isFinite(safeItem.number) ? safeItem.number : 0,
+        id: safeItem.id || generateUUID(),
+    };
+};
+
 /* global chrome */
 export const getData = () => {
     return new Promise((resolve, reject) => {
@@ -14,10 +24,7 @@ export const getData = () => {
                 console.error(chrome.runtime.lastError.message);
                 reject(chrome.runtime.lastError.message);
             } else {
-                let res =
-                    result.items && result.items.length
-                        ? result.items
-                        : [{ itemName: '', number: 0, id: generateUUID() }];
+                let res = result.items && result.items.length ? result.items.map(normalizeItem) : [normalizeItem({})];
 
                 resolve(res);
             }
